@@ -4,3 +4,5 @@ Yet another image to ASCII converter.
 I made this to improve my skills.
 
 Version 1.0 is out in the releases guys!
+
+No idea if it works on Windows :)
