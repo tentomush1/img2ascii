@@ -1,16 +1,19 @@
 from PIL import Image, ImagePalette
 
-size = 128
+ascii_chars = list("$B%&W#*oakbdqmZOQLCUXcvnxjf/|)1}[]-_~<>!lI;:,^`'. ")
+index = 0
 
-o = open('output.txt', 'w')
-o.write('testing/texting')
-o.write('\n')
-o.close()
+print('If you get an error in image location use absolute path. Otherwise use ./[...] path')
 
 # open image
-i = Image.open("/home/m/cs/python/img2ascii/input.jpg")
+# i = Image.open("/home/m/cs/python/img2ascii/input.jpg") #fixed path
+i = Image.open(input("Image location: \n"))
+# ask for image size
+size = input("ASCII art max width/height size (in px): \n")
+size = int(size)
 # resize image
 width, height = i.size
+width = width*2
 if int(width) > int(height):
     height = int(size / (width / height))
     width = size
@@ -21,13 +24,26 @@ i = i.resize((width,height))
 # convert rgb to grayscale
 i = i.convert("L")
 
-# i.show()
+# getting all the pixels
+tuple_list = list(i.getdata())
 
-p = list(i.getdata())
+# write to the output file
+o = open('output.txt', 'w')
 
-# for each in p :
+while index < len(tuple_list):
+    if index % size == 0 and index != 0:
+        o.write('\n')
+    o.write(ascii_chars[int((tuple_list[index])/5)-1])
+    index += 1
 
-print(len('$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`.')+1)
+# close output file
+o.write('\n')
+o.close()
+
+# print file output
+o = open('output.txt', 'r')
+print(o.read())
+
 
 
 
